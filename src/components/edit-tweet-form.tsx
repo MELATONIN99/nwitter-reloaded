@@ -65,7 +65,6 @@ const SubmitBtn = styled.input`
 
 export default function EditTweetForm(
     {id, createAt, tweet}:ITweet) {
-    const user = auth.currentUser
     const [isLoading, setLoading] = useState(false);
     const [dataState, setTweet] = useState(tweet);
     const [file, setFile] = useState<File | null>(null);
@@ -83,6 +82,7 @@ export default function EditTweetForm(
     };
     const onSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const user = auth.currentUser
         if(!user || isLoading || dataState === "" || dataState.length >180) return;
 
         try {
@@ -95,8 +95,15 @@ export default function EditTweetForm(
               username: user.displayName || "Anonymous",
               userId: user.uid,
             };
-        
             await setDoc(tweetDocRef, data);
+            if(file){
+                const locationRef = ref(storage,`tweets/${user.uid}/${tweetDocRef.id}`);
+            const result = await uploadBytes(locationRef, file);
+            const url = await getDownloadURL(result.ref)
+            updateDoc(tweetDocRef, {
+                photo : url,
+            });
+            }
             setTweet("");
             setFile(null);
         } catch(e){
@@ -115,13 +122,13 @@ export default function EditTweetForm(
         onChange={onChange}
         value={dataState} 
         />
-        <AttachFileButton htmlFor="file">
+        <AttachFileButton htmlFor="editfile">
             {file ? "Photo added ✔️" :"Add photo"}
         </AttachFileButton>
         <AttachFileInput 
         onChange={onFileChange}
         type="file" 
-        id="file" 
+        id="editfile" 
         accept="image/*"
         />
         <SubmitBtn type="submit" value={isLoading ? "Posting..." : "Edit Tweet"}/>
