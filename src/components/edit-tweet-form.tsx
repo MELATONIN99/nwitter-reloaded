@@ -64,10 +64,10 @@ const SubmitBtn = styled.input`
 
 
 export default function EditTweetForm(
-    {id, createAt}:ITweet) {
+    {id, createAt, tweet}:ITweet) {
     const user = auth.currentUser
     const [isLoading, setLoading] = useState(false);
-    const [tweet, setTweet] = useState("");
+    const [dataState, setTweet] = useState(tweet);
     const [file, setFile] = useState<File | null>(null);
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTweet(e.target.value);
@@ -83,14 +83,14 @@ export default function EditTweetForm(
     };
     const onSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(!user || isLoading || tweet === "" || tweet.length >180) return;
+        if(!user || isLoading || dataState === "" || dataState.length >180) return;
 
         try {
             
             setLoading(true);
             const tweetDocRef = doc(db, "tweets", id); // 여기에 새로운 문서의 ID를 지정합니다.
             const data = {
-              tweet,
+              tweet:dataState,
               createAt,
               username: user.displayName || "Anonymous",
               userId: user.uid,
@@ -106,16 +106,14 @@ export default function EditTweetForm(
         
         }
     };
-    
-console.log("id:::::", id)
+
     return <Form onSubmit={onSubmit}>
         <TextArea 
         required
         rows={5}
         maxLength={180}
         onChange={onChange}
-        value={tweet} 
-        placeholder="What is happening?!"
+        value={dataState} 
         />
         <AttachFileButton htmlFor="file">
             {file ? "Photo added ✔️" :"Add photo"}

@@ -68,7 +68,6 @@ cursor: pointer;
 
 export default function Tweet({username, photo, tweet, userId, id, createAt}:ITweet) {
     const user = auth.currentUser;
-    console.log("tweet:::::::", tweet )
     const onDelete = async() => {
         const ok = confirm("Are you sure you want to delete this tweet?")
         if(!ok || user?.uid !== userId) return;
@@ -111,7 +110,7 @@ export default function Tweet({username, photo, tweet, userId, id, createAt}:ITw
             createAt={createAt}
             username = {username} 
             photo = {photo}
-            data ={tweet}
+            tweet ={tweet}
             userId = {userId}
              id = {id}></EditTweetForm>
             <button onClick={closeModal}>Close</button>
