@@ -7,8 +7,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
   display: flex;
+  position: absolute;
   flex-direction: column;
   gap: 10px;
+  max-width: 605px;
+  width: 60%;
 `;
 
 const TextArea = styled.textarea`
@@ -130,7 +133,6 @@ export default function PostTweetForm() {
         accept="image/*"
         />
         <SubmitBtn type="submit" value={isLoading ? "Posting..." : "Post Tweet"}/>
-
     </Form>
 }
 

@@ -16,8 +16,12 @@ export interface ITweet {
 
 const Wrapper = styled.div`
 display: flex;
+max-width: 605px;
+width: 60%;
 gap:10px;
 flex-direction: column;
+position: absolute;
+top:310px;
 
 `;
 

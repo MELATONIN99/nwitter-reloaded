@@ -88,7 +88,7 @@ export default function EditTweetForm(
         try {
             
             setLoading(true);
-            const tweetDocRef = doc(db, "tweets", id); // 여기에 새로운 문서의 ID를 지정합니다.
+            const tweetDocRef = doc(db, "tweets", id);
             const data = {
               tweet:dataState,
               createAt,
