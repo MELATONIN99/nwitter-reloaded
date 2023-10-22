@@ -108,6 +108,7 @@ export default function Tweet({username, photo, tweet, userId, id, createAt}:ITw
                 const photoRef = ref(storage, `tweets/${user.uid}/${id}`);
                 await deleteObject(photoRef);
             }
+            
         }catch(e){
             console.log(e);
         } finally {
