@@ -19,6 +19,9 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  width: 90%;
+  max-width: 605px;
+  justify-content: center;
 `;
 const AvatarUpload = styled.label`
   width: 80px;

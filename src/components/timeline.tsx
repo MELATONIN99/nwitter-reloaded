@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { collection, getDocs, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import Tweet from "./tweet";
 import { Unsubscribe } from 'firebase/auth';
